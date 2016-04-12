@@ -1,6 +1,8 @@
 package com.hardware;
 
 import com.hardware.model.PiStamp;
+import com.hardware.piController.PiController;
+import com.hardware.service.RxTxService;
 import com.hardware.service.SpringService;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -21,6 +23,9 @@ public class HardwareProjectApplication extends Application {
 	@Autowired
 	SpringService serverService;
 
+	@Autowired
+	PiController ctrl;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -40,8 +45,16 @@ public class HardwareProjectApplication extends Application {
 		app.setWebEnvironment(false);
 		applicationContext = app.run();
 		applicationContext.getAutowireCapableBeanFactory().autowireBean(app);
+
+
 		serverService = new SpringService();
-		serverService.testSendingRFID();
+		RxTxService rxtxService = new RxTxService();
+
+		ctrl.setServerService(serverService);
+		ctrl.setRxTxService(rxtxService);
+
+		ctrl.init();
+		//serverService.testSendingRFID();
 
 
 

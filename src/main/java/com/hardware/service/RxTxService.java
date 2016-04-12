@@ -7,6 +7,7 @@ import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.util.Scanner;
 /**
  * Created by jonatan on 2016-04-12.
  */
+@Component
 public class RxTxService implements SerialPortEventListener{
 
     @Autowired
@@ -93,10 +95,11 @@ public class RxTxService implements SerialPortEventListener{
                         SerialPort.PARITY_NONE);
 
                 // open the streams
-                input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
+
                 output = serialPort.getOutputStream();
 
-                // add event listeners
+	            piSerialPortEventListener.setSerialPort(serialPort);
+	            // add event listeners
                 serialPort.addEventListener(piSerialPortEventListener);
                 serialPort.notifyOnDataAvailable(true);
             } catch (Exception e) {
@@ -165,5 +168,8 @@ public class RxTxService implements SerialPortEventListener{
 
         }
 
+    public SerialPort getSerialPort() {
+        return serialPort;
     }
+}
 
