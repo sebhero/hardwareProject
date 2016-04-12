@@ -1,5 +1,6 @@
 package com.hardware;
 
+import com.hardware.gui.MainWindow;
 import com.hardware.model.PiStamp;
 import com.hardware.piController.PiController;
 import com.hardware.service.RxTxService;
@@ -34,6 +35,7 @@ public class HardwareProjectApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		//		primaryStage.setScene(new Scene(mainLayout));
+		primaryStage.setScene(new MainWindow());
 		primaryStage.show();
 	}
 
@@ -49,7 +51,7 @@ public class HardwareProjectApplication extends Application {
 
 		serverService = new SpringService();
 		RxTxService rxtxService = new RxTxService();
-
+		ctrl = new PiController();
 		ctrl.setServerService(serverService);
 		ctrl.setRxTxService(rxtxService);
 
