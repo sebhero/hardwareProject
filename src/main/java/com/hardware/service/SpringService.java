@@ -1,7 +1,30 @@
 package com.hardware.service;
 
+import com.hardware.model.PiStamp;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+
 /**
  * Created by seb on 2016-04-12.
  */
+
+@Component
 public class SpringService {
+
+	private static final Logger log = LoggerFactory.getLogger(SpringService.class);
+
+
+	public SpringService() {
+	}
+
+	public void testSendingRFID() {
+///do A SERVER CALL
+		RestTemplate restTemplate = new RestTemplate();
+		//// TODO: 2016-04-12 Change Server IP
+		PiStamp quote = restTemplate.getForObject("http://192.168.1.51:8080/pi/247615E", PiStamp.class);
+		System.out.println("GOT Answear from server");
+		log.info(quote.toString());
+	}
 }
