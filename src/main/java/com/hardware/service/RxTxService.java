@@ -20,7 +20,8 @@ import java.util.Scanner;
  * Created by jonatan on 2016-04-12.
  */
 @Component
-public class RxTxService implements SerialPortEventListener{
+public class RxTxService implements SerialPortEventListener {
+
 
 
     PISerialPortEventListener piSerialPortEventListener;
@@ -34,7 +35,7 @@ public class RxTxService implements SerialPortEventListener{
                 "/dev/tty.usbserial-A9007UX1", // Mac OS X
                 "/dev/ttyACM0", // Raspberry Pi
                 "/dev/ttyUSB0", // Linux
-                "COM5", // Windows
+                "COM4", // Windows
         };
         /**
          * A BufferedReader which will be fed by a InputStreamReader
@@ -146,10 +147,14 @@ public class RxTxService implements SerialPortEventListener{
 
         }
 
+        public void run(){
+            initialize();
+        }
+
         /**
          * Handle an event on the serial port. Read the data and print it.
          */
-        public synchronized void serialEvent(SerialPortEvent oEvent) {
+       public synchronized void serialEvent(SerialPortEvent oEvent) {
             if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
                 try {
                     String inputLine = input.readLine();

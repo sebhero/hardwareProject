@@ -59,11 +59,16 @@ public class PiController {
 
     public void sendToServer(String inputLine) {
         PiStamp stamp = serverService.sendRfid(inputLine);
+		try{
         if(stamp != null){
             log.info("Sending to gui " + stamp.toString());
             mainView.setServerAnswer(stamp);
         }else{
             log.error("Failed to recive");
         }
-    }
+     }catch(IllegalStateException e){
+		System.out.println("Error!");
+
+	 }
+	}
 }

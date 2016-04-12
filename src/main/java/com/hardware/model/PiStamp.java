@@ -51,6 +51,7 @@ public class PiStamp implements Serializable {
 	}
 
 	public Calendar getDate() {
+
 		return date;
 	}
 
