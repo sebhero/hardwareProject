@@ -22,10 +22,8 @@ import java.util.Scanner;
 @Component
 public class RxTxService implements SerialPortEventListener{
 
-    @Autowired
-    PISerialPortEventListener piSerialPortEventListener;
 
-    @Autowired
+    PISerialPortEventListener piSerialPortEventListener;
     private PiController ctrl;
 
         SerialPort serialPort;
@@ -95,12 +93,12 @@ public class RxTxService implements SerialPortEventListener{
                         SerialPort.PARITY_NONE);
 
                 // open the streams
-
                 output = serialPort.getOutputStream();
-
-	            piSerialPortEventListener.setSerialPort(serialPort);
+                System.out.println("Seiralportsend");
+                piSerialPortEventListener.setSerialPort(serialPort);
 	            // add event listeners
                 serialPort.addEventListener(piSerialPortEventListener);
+                System.out.println("Seiralportsend2");
                 serialPort.notifyOnDataAvailable(true);
             } catch (Exception e) {
                 System.err.println(e.toString());
@@ -170,6 +168,10 @@ public class RxTxService implements SerialPortEventListener{
 
     public SerialPort getSerialPort() {
         return serialPort;
+    }
+
+    public void setEventHandler(PISerialPortEventListener eventHandler) {
+        this.piSerialPortEventListener = eventHandler;
     }
 }
 

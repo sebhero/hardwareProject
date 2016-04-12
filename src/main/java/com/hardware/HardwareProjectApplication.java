@@ -1,6 +1,6 @@
 package com.hardware;
 
-import com.hardware.gui.MainWindow;
+import com.hardware.helper.PISerialPortEventListener;
 import com.hardware.model.PiStamp;
 import com.hardware.piController.PiController;
 import com.hardware.service.RxTxService;
@@ -35,7 +35,6 @@ public class HardwareProjectApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		//		primaryStage.setScene(new Scene(mainLayout));
-		primaryStage.setScene(new MainWindow());
 		primaryStage.show();
 	}
 
@@ -51,7 +50,9 @@ public class HardwareProjectApplication extends Application {
 
 		serverService = new SpringService();
 		RxTxService rxtxService = new RxTxService();
+		PISerialPortEventListener listener = new PISerialPortEventListener();
 		ctrl = new PiController();
+		ctrl.setEventListener(listener);
 		ctrl.setServerService(serverService);
 		ctrl.setRxTxService(rxtxService);
 
