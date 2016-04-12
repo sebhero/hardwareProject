@@ -66,7 +66,7 @@ public class HardwareProjectApplication extends Application {
 
 		ctrl.setMainView(mainLayout);
 
-		ctrl.init();
+//		ctrl.init();
 		//serverService.testSendingRFID();
 
 	}

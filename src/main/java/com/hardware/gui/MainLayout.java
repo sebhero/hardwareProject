@@ -18,9 +18,11 @@ public class MainLayout extends GridPane {
 		add(new Label("Received"), 1, 0);
 		add(new Label("Send Form"), 0, 2);
 
-//		Button btnTest = new Button("Test");
-//		btnTest.setOnAction(event -> {
-//			System.out.println("Hello");
-//		});
+		Button btnTest = new Button("Test");
+		btnTest.setOnAction(event -> {
+			System.out.println("Hello");
+		});
+
+		add(btnTest,1,2);
 	}
 }
