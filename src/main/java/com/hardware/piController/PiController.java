@@ -2,6 +2,7 @@ package com.hardware.piController;
 
 import com.hardware.gui.MainLayout;
 import com.hardware.helper.PISerialPortEventListener;
+import com.hardware.model.PiStamp;
 import com.hardware.service.RxTxService;
 import com.hardware.service.SpringService;
 import org.slf4j.Logger;
@@ -42,6 +43,7 @@ public class PiController {
 	 * Setup services
 	 */
 	public void init() {
+        listener.setController(this);
 		log.info("running Init");
         rxTxService.setEventHandler(listener);
 		rxTxService.initialize();
@@ -54,4 +56,14 @@ public class PiController {
 	public void setMainView(MainLayout mainView) {
 		this.mainView = mainView;
 	}
+
+    public void sendToServer(String inputLine) {
+        PiStamp stamp = serverService.sendRfid(inputLine);
+        if(stamp != null){
+            log.info("Sending to gui " + stamp.toString());
+            mainView.setServerAnswer(stamp);
+        }else{
+            log.error("Failed to recive");
+        }
+    }
 }

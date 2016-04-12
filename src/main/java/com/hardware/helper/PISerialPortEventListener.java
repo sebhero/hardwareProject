@@ -1,5 +1,6 @@
 package com.hardware.helper;
 
+import com.hardware.piController.PiController;
 import com.hardware.service.RxTxService;
 import com.hardware.service.SpringService;
 import gnu.io.RXTXCommDriver;
@@ -24,6 +25,7 @@ public class PISerialPortEventListener implements SerialPortEventListener {
 
 	private SerialPort serialPort;
 	private BufferedReader input;
+	private PiController controller;
 
 	@Override
 	public void serialEvent(SerialPortEvent oEvent) {
@@ -34,6 +36,7 @@ public class PISerialPortEventListener implements SerialPortEventListener {
 			try {
 
 				String inputLine = input.readLine();
+				controller.sendToServer(inputLine);
 				System.out.println("Input: " + inputLine);
 			} catch (Exception e) {
 				System.err.println(e.toString());
@@ -48,5 +51,9 @@ public class PISerialPortEventListener implements SerialPortEventListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setController(PiController controller) {
+		this.controller = controller;
 	}
 }
