@@ -1,5 +1,6 @@
 package com.hardware.piController;
 
+import com.hardware.helper.PISerialPortEventListener;
 import com.hardware.service.RxTxService;
 import com.hardware.service.SpringService;
 import org.slf4j.Logger;
@@ -16,8 +17,9 @@ public class PiController {
 
 	private SpringService serverService;
 	private RxTxService rxTxService;
+    private PISerialPortEventListener listener;
 
-	public PiController() {
+    public PiController() {
 		System.out.println("stared Pi controller");
 	}
 
@@ -39,6 +41,11 @@ public class PiController {
 	 */
 	public void init() {
 		log.info("running Init");
+        rxTxService.setEventHandler(listener);
 		rxTxService.initialize();
 	}
+
+    public void setEventListener(PISerialPortEventListener listener) {
+        this.listener = listener;
+    }
 }
