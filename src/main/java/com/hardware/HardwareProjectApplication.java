@@ -1,11 +1,13 @@
 package com.hardware;
 
+import com.hardware.gui.MainLayout;
 import com.hardware.helper.PISerialPortEventListener;
 import com.hardware.model.PiStamp;
 import com.hardware.piController.PiController;
 import com.hardware.service.RxTxService;
 import com.hardware.service.SpringService;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.client.RestTemplate;
 
+@Lazy
 @SpringBootApplication
 public class HardwareProjectApplication extends Application {
 
@@ -27,6 +31,9 @@ public class HardwareProjectApplication extends Application {
 	@Autowired
 	PiController ctrl;
 
+
+	private MainLayout mainLayout = new MainLayout();
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -34,12 +41,13 @@ public class HardwareProjectApplication extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		//		primaryStage.setScene(new Scene(mainLayout));
+		primaryStage.setScene(new Scene(mainLayout));
 		primaryStage.show();
 	}
 
 	@Override
 	public void init() throws Exception {
+
 		//super.init();
 		System.out.println("STARTING Hardware App");
 		SpringApplication app = new SpringApplication(HardwareProjectApplication.class);
@@ -56,12 +64,17 @@ public class HardwareProjectApplication extends Application {
 		ctrl.setServerService(serverService);
 		ctrl.setRxTxService(rxtxService);
 
+		ctrl.setMainView(mainLayout);
+
 		ctrl.init();
 		//serverService.testSendingRFID();
 
+	}
 
-
-
+	@Override
+	public void stop() throws Exception {
+		super.stop();
+		applicationContext.close();
 	}
 
 

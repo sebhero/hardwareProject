@@ -1,5 +1,6 @@
 package com.hardware.piController;
 
+import com.hardware.gui.MainLayout;
 import com.hardware.helper.PISerialPortEventListener;
 import com.hardware.service.RxTxService;
 import com.hardware.service.SpringService;
@@ -18,8 +19,9 @@ public class PiController {
 	private SpringService serverService;
 	private RxTxService rxTxService;
     private PISerialPortEventListener listener;
+	private MainLayout mainView;
 
-    public PiController() {
+	public PiController() {
 		System.out.println("stared Pi controller");
 	}
 
@@ -48,4 +50,8 @@ public class PiController {
     public void setEventListener(PISerialPortEventListener listener) {
         this.listener = listener;
     }
+
+	public void setMainView(MainLayout mainView) {
+		this.mainView = mainView;
+	}
 }
