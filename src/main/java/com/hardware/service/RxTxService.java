@@ -1,9 +1,12 @@
 package com.hardware.service;
 
+import com.hardware.helper.PISerialPortEventListener;
+import com.hardware.piController.PiController;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +19,12 @@ import java.util.Scanner;
  * Created by jonatan on 2016-04-12.
  */
 public class RxTxService implements SerialPortEventListener{
+
+    @Autowired
+    PISerialPortEventListener piSerialPortEventListener;
+
+    @Autowired
+    private PiController ctrl;
 
         SerialPort serialPort;
         /**
@@ -49,7 +58,7 @@ public class RxTxService implements SerialPortEventListener{
 
         public void initialize() {
             // the next line is for Raspberry Pi and
-            //TODO glöm ej att avmarkera när det ska till pin
+            //TODO glöm ej att avmarkera när det ska till PIn
             // gets us into the while loop and was suggested here was suggested http://www.raspberrypi.org/phpBB3/viewtopic.php?f=81&t=32186
             //System.setProperty("gnu.io.rxtx.SerialPorts", "/dev/ttyACM0");
 
@@ -88,7 +97,7 @@ public class RxTxService implements SerialPortEventListener{
                 output = serialPort.getOutputStream();
 
                 // add event listeners
-                serialPort.addEventListener(this);
+                serialPort.addEventListener(piSerialPortEventListener);
                 serialPort.notifyOnDataAvailable(true);
             } catch (Exception e) {
                 System.err.println(e.toString());

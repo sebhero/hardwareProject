@@ -23,7 +23,8 @@ public class SpringService {
 ///do A SERVER CALL
 		RestTemplate restTemplate = new RestTemplate();
 		//// TODO: 2016-04-12 Change Server IP
-		PiStamp quote = restTemplate.getForObject("http://192.168.1.51:8080/pi/247615E", PiStamp.class);
+//		PiStamp quote = restTemplate.getForObject("http://192.168.1.51:8080/pi/247615E", PiStamp.class);
+		PiStamp quote = restTemplate.getForObject("http://localhost:8080/pi/247615E", PiStamp.class);
 		System.out.println("GOT Answear from server");
 		log.info(quote.toString());
 	}
