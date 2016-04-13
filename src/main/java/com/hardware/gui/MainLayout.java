@@ -30,28 +30,25 @@ public class MainLayout extends GridPane {
 
 		Button btnTest = new Button("Test");
 		btnTest.setOnAction(event -> {
-			label1.setText("Aids");
 			System.out.println("Hello");
 		});
 
 		add(btnTest,1,2);
 	}
 
+	/**
+	 * Prints out the answer from the server
+	 * @param serverAnswer an pistamp with information
+     */
 	public synchronized void setServerAnswer(PiStamp serverAnswer) {
         System.out.println("i gui (trying to print out)");
         this.serverAnswer = serverAnswer;
 
+		//For connection too our Fx thread
 		Platform.runLater(new Runnable() {
 			public void run() {
-				/*String checked = "Checked";
-				if(serverAnswer.isCheckIn()){
-					checked += " in";
-				}
-				else{
-					checked += " out";
-				}*/
-
-				label1.setText(serverAnswer.getFirstName() + " " + serverAnswer.getLastName() + " checked " + (serverAnswer.isCheckIn() ? "in":"out"));
+				label1.setText(serverAnswer.getFirstName() + " " + serverAnswer.getLastName() + " checked " +
+						(serverAnswer.isCheckIn() ? "in":"out"));
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				String format = simpleDateFormat.format(serverAnswer.getDate().getTime());
 				label2.setText(format);

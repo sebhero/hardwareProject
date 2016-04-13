@@ -34,17 +34,21 @@ public class HardwareProjectApplication extends Application {
 
 	private MainLayout mainLayout = new MainLayout();
 
-	public static void main(String[] args) {
-		launch(args);
-	}
-
-
+	/**
+	 * Starts our gui
+	 * @param primaryStage the gui
+	 * @throws Exception
+     */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setScene(new Scene(mainLayout,420,380));
 		primaryStage.show();
 	}
 
+	/**
+	 * Initialize all objects that will be used
+	 * @throws Exception
+     */
 	@Override
 	public void init() throws Exception {
 
@@ -59,22 +63,30 @@ public class HardwareProjectApplication extends Application {
 		serverService = new SpringService();
 		RxTxService rxtxService = new RxTxService();
 		PISerialPortEventListener listener = new PISerialPortEventListener();
+
 		ctrl = new PiController();
 		ctrl.setEventListener(listener);
 		ctrl.setServerService(serverService);
 		ctrl.setRxTxService(rxtxService);
-
 		ctrl.setMainView(mainLayout);
-
 		ctrl.init();
+
 		//serverService.testSendingRFID();
 
 	}
 
+	/**
+	 * Stopps the application
+	 * @throws Exception
+     */
 	@Override
 	public void stop() throws Exception {
 		super.stop();
 		applicationContext.close();
+	}
+
+	public static void main(String[] args) {
+		launch(args);
 	}
 
 

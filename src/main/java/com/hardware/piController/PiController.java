@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 public class PiController {
 
 	private static final Logger log = LoggerFactory.getLogger(PiController.class);
-
 	private SpringService serverService;
 	private RxTxService rxTxService;
     private PISerialPortEventListener listener;
@@ -28,35 +27,56 @@ public class PiController {
 
 	public void getDataFromArduino(String rfidKey) {
 		System.out.println("Got from pi: "+rfidKey);
-
-	}
-
-	public void setServerService(SpringService serverService) {
-		this.serverService = serverService;
-	}
-
-	public void setRxTxService(RxTxService rxTxService) {
-		this.rxTxService = rxTxService;
 	}
 
 	/**
 	 * Setup services
 	 */
 	public void init() {
-        listener.setController(this);
+		listener.setController(this);
 		log.info("running Init");
-        rxTxService.setEventHandler(listener);
+		rxTxService.setEventHandler(listener);
 		rxTxService.initialize();
 	}
 
+	/**
+	 * Sets up serverlink
+	 * @param serverService the serverclass
+     */
+	public void setServerService(SpringService serverService) {
+		this.serverService = serverService;
+	}
+
+	/**
+	 * Sets up the rxtxservicelink
+	 * @param rxTxService the input
+     */
+	public void setRxTxService(RxTxService rxTxService) {
+		this.rxTxService = rxTxService;
+	}
+
+	/**
+	 * Sets upp eventlistern
+	 * @param listener our eventlistener
+     */
     public void setEventListener(PISerialPortEventListener listener) {
         this.listener = listener;
     }
 
+	/**
+	 * Sets the mainview
+	 * @param mainView we want to use
+     */
 	public void setMainView(MainLayout mainView) {
 		this.mainView = mainView;
 	}
 
+	/**
+	 * This method will send a string to servern,
+	 * then if the stamp isn´t null we will transfer the stamp to the gui.
+	 *
+	 * @param inputLine rfid
+     */
     public void sendToServer(String inputLine) {
         PiStamp stamp = serverService.sendRfid(inputLine);
 		try{

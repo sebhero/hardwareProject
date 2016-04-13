@@ -26,39 +26,74 @@ public class PiStamp implements Serializable {
 	public PiStamp() {
 	}
 
+	/**
+	 * Returns lastname
+	 * @return lastname
+     */
 	public String getLastName() {
 		return lastName;
 	}
 
+	/**
+	 * Sets s new lastname
+	 * @param lastName new lastname
+     */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
+	/**
+	 * Returns firstname
+	 * @return firstname
+     */
 	public String getFirstName() {
 		return firstName;
 	}
 
+	/**
+	 * Sets a new firstname
+	 * @param firstName new firstname
+     */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
+	/**
+	 * Returns if the user have checked in or out
+	 * @return true = in,false = out
+     */
 	public boolean isCheckIn() {
 		return checkIn;
 	}
 
+	/**
+	 * Sets if the stamp is an in or out check
+	 * @param checkIn
+     */
 	public void setCheckIn(boolean checkIn) {
 		this.checkIn = checkIn;
 	}
 
+	/**
+	 * Returns an dateobject
+	 * @return
+     */
 	public Calendar getDate() {
-
 		return date;
 	}
 
+	/**
+	 * Set the date to a new date
+	 * @param date new date
+     */
 	public void setDate(Calendar date) {
 		this.date = date;
 	}
 
+	/**
+	 * Makes all info from the class to an string
+	 * @return a string with info
+     */
 	@Override
 	public String toString() {
 		return "PiStamp{" +

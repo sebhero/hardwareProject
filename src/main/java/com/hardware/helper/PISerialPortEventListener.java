@@ -27,6 +27,10 @@ public class PISerialPortEventListener implements SerialPortEventListener {
 	private BufferedReader input;
 	private PiController controller;
 
+	/**
+	 * This method will take care of an serialportevent and then return it to the controller
+	 * @param oEvent serialportevent
+     */
 	@Override
 	public void serialEvent(SerialPortEvent oEvent) {
 		System.out.println("GOt request from Arudino");
@@ -44,6 +48,10 @@ public class PISerialPortEventListener implements SerialPortEventListener {
 		}
 	}
 
+	/**
+	 * This method will set the local serialport to a destinated one
+	 * @param serialPort the port we need to use
+     */
 	public void setSerialPort(SerialPort serialPort) {
 		this.serialPort = serialPort;
 		try {
@@ -53,6 +61,10 @@ public class PISerialPortEventListener implements SerialPortEventListener {
 		}
 	}
 
+	/**
+	 * This method will connect the controller object to this class
+	 * @param controller the controller
+     */
 	public void setController(PiController controller) {
 		this.controller = controller;
 	}

@@ -18,7 +18,7 @@ public class SpringService {
 
 	public SpringService() {
 	}
-
+	// TODO a test remove later!
 	public void testSendingRFID() {
 ///do A SERVER CALL
 		RestTemplate restTemplate = new RestTemplate();
@@ -33,6 +33,12 @@ public class SpringService {
 		}
 	}
 
+	/**
+	 * Still method will send the rfid to the server,
+	 * then it will return the answer as an piStamp
+	 * @param inputLine rfid
+	 * @return pistamp
+     */
 	public PiStamp sendRfid(String inputLine) {
 
         log.info("Sending data to server " + inputLine);
