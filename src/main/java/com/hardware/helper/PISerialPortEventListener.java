@@ -39,10 +39,15 @@ public class PISerialPortEventListener implements SerialPortEventListener {
 
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
-				//TODO kolla input så det inte är korrupt
-				RfidKey key = new RfidKey(input.readLine());
-				controller.sendToServer(key);
-				System.out.println("Input: " + key.getId());
+				String inputline = input.readLine();
+				//for test this check testIf class
+				if(inputline.length() > 8 || inputline.length() < 7){
+					controller.corruptReading();
+				}else{
+					RfidKey key = new RfidKey(inputline);
+					controller.sendToServer(key);
+					System.out.println("Input: " + key.getId());
+				}
 			} catch (Exception e) {
 				System.err.println(e.toString());
 			}

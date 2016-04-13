@@ -92,4 +92,8 @@ public class PiController {
 
 	 }
 	}
+
+	public void corruptReading() {
+		//Todo send error message to gui
+	}
 }
