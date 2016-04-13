@@ -1,6 +1,8 @@
 package com.hardware.service;
 
 import com.hardware.model.PiStamp;
+import com.hardware.model.RfidKey;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,10 +19,9 @@ public class SpringServiceTest {
     public void testSendRfid() throws Exception {
         //an id that i know exist A448182B
         //is Einar Andersson
-        Object test = service.sendRfid("A448182B");
-        if(test instanceof PiStamp)
-            System.out.println("true");
-        else
-            System.out.println("false");
+        RfidKey key = new RfidKey("A448182B");
+        Object test = service.sendRfid(key);
+        Assert.assertTrue(test instanceof PiStamp);
+        Assert.assertFalse(test instanceof RfidKey);
     }
 }

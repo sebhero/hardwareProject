@@ -3,6 +3,7 @@ package com.hardware.piController;
 import com.hardware.gui.MainLayout;
 import com.hardware.helper.PISerialPortEventListener;
 import com.hardware.model.PiStamp;
+import com.hardware.model.RfidKey;
 import com.hardware.service.RxTxService;
 import com.hardware.service.SpringService;
 import org.slf4j.Logger;
@@ -75,10 +76,10 @@ public class PiController {
 	 * This method will send a string to servern,
 	 * then if the stamp isn´t null we will transfer the stamp to the gui.
 	 *
-	 * @param inputLine rfid
+	 * @param key rfid
      */
-    public void sendToServer(String inputLine) {
-        PiStamp stamp = serverService.sendRfid(inputLine);
+    public void sendToServer(RfidKey key) {
+        PiStamp stamp = serverService.sendRfid(key);
 		try{
         if(stamp != null){
             log.info("Sending to gui " + stamp.toString());
