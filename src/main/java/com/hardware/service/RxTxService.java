@@ -19,6 +19,7 @@ import java.util.Scanner;
 /**
  * Created by jonatan on 2016-04-12.
  */
+
 @Component
 public class RxTxService implements SerialPortEventListener {
 
@@ -166,10 +167,6 @@ public class RxTxService implements SerialPortEventListener {
             // Ignore all the other eventTypes, but you should consider the other ones.
         }
 
-        public static void main(String[] args) throws Exception {
-            //TODO
-
-        }
 
     public SerialPort getSerialPort() {
         return serialPort;
