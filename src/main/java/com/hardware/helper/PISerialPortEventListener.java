@@ -1,5 +1,6 @@
 package com.hardware.helper;
 
+import com.hardware.model.RfidKey;
 import com.hardware.piController.PiController;
 import com.hardware.service.RxTxService;
 import com.hardware.service.SpringService;
@@ -38,10 +39,15 @@ public class PISerialPortEventListener implements SerialPortEventListener {
 
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
-
-				String inputLine = input.readLine();
-				controller.sendToServer(inputLine);
-				System.out.println("Input: " + inputLine);
+				String inputline = input.readLine();
+				//for test this check testIf class
+				if(inputline.length() > 8 || inputline.length() < 7){
+					controller.corruptReading();
+				}else{
+					RfidKey key = new RfidKey(inputline);
+					controller.sendToServer(key);
+					System.out.println("Input: " + key.getId());
+				}
 			} catch (Exception e) {
 				System.err.println(e.toString());
 			}

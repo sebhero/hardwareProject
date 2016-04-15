@@ -1,6 +1,7 @@
 package com.hardware.service;
 
 import com.hardware.model.PiStamp;
+import com.hardware.model.RfidKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -36,17 +37,17 @@ public class SpringService {
 	/**
 	 * Still method will send the rfid to the server,
 	 * then it will return the answer as an piStamp
-	 * @param inputLine rfid
+	 * @param key rfid
 	 * @return pistamp
      */
-	public PiStamp sendRfid(String inputLine) {
+	public PiStamp sendRfid(RfidKey key) {
 
-        log.info("Sending data to server " + inputLine);
+        log.info("Sending data to server " + key.getId());
 		///do A SERVER CALL
 		RestTemplate restTemplate = new RestTemplate();
 		//// TODO: 2016-04-12 Change Server IP
 		try {
-			PiStamp stamp = restTemplate.getForObject("http://192.168.1.51:8080/pi/" + inputLine, PiStamp.class);
+			PiStamp stamp = restTemplate.getForObject("http://192.168.1.51:8080/pi/" + key.getId(), PiStamp.class);
 			//PiStamp quote = restTemplate.getForObject("http://localhost:8080/pi/247615E", PiStamp.class);
 			System.out.println("GOT Answear from server");
 			log.info(stamp.toString());

@@ -19,8 +19,9 @@ import java.util.Scanner;
 /**
  * Created by jonatan on 2016-04-12.
  */
+
 @Component
-public class RxTxService implements SerialPortEventListener {
+public class RxTxService {
 
 
 
@@ -107,34 +108,6 @@ public class RxTxService implements SerialPortEventListener {
 
 
         }
-
-        /**
-         * Send text data to arduino
-         */
-        public void showConsole() {
-            System.out.println("write something to arduino");
-            Scanner scanner = new Scanner(System.in);
-            String got;
-            do {
-                got= scanner.nextLine();
-                //got += "\n";
-                System.out.println("sending to arduino= " + got);
-                try {
-                    //send the string bytes to arduino
-                    output.write((got+"\n").getBytes());
-                    output.flush();
-                } catch (IOException e) {
-                    System.out.println("Faild to send string to arduino");
-                    e.printStackTrace();
-                }
-            } while ((got.equals("exit")) == false);
-
-            System.out.println("exit");
-            close();
-            System.exit(0);
-
-        }
-
         /**
          * This should be called when you stop using the port.
          * This will prevent port locking on platforms like Linux.
@@ -147,29 +120,7 @@ public class RxTxService implements SerialPortEventListener {
 
         }
 
-        public void run(){
-            initialize();
-        }
 
-        /**
-         * Handle an event on the serial port. Read the data and print it.
-         */
-       public synchronized void serialEvent(SerialPortEvent oEvent) {
-            if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
-                try {
-                    String inputLine = input.readLine();
-                    System.out.println("Input: " + inputLine);
-                } catch (Exception e) {
-                    System.err.println(e.toString());
-                }
-            }
-            // Ignore all the other eventTypes, but you should consider the other ones.
-        }
-
-        public static void main(String[] args) throws Exception {
-            //TODO
-
-        }
 
     public SerialPort getSerialPort() {
         return serialPort;
@@ -178,5 +129,6 @@ public class RxTxService implements SerialPortEventListener {
     public void setEventHandler(PISerialPortEventListener eventHandler) {
         this.piSerialPortEventListener = eventHandler;
     }
+
 }
 

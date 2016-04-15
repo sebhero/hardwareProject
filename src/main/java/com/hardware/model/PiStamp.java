@@ -14,6 +14,7 @@ import java.util.Calendar;
  * Pistamp is used on the pi for dispalying info when a user stamps in.
  * this is the return model
  */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PiStamp implements Serializable {
 
