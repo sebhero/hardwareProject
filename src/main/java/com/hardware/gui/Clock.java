@@ -15,6 +15,7 @@ public class Clock {
         lineMinute.setStartY(105);
         lineHour.setStartX(105);
         lineHour.setStartY(105);
+        //hello
     }
     public void clockLine(int hour, int minute){
         //radie 80
