@@ -1,5 +1,6 @@
 package com.hardware;
 
+import com.hardware.gui.Clock;
 import com.hardware.gui.MainLayout;
 import com.hardware.helper.PISerialPortEventListener;
 import com.hardware.model.PiStamp;
@@ -9,6 +10,7 @@ import com.hardware.service.SpringService;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +43,10 @@ public class HardwareProjectApplication extends Application {
      */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setScene(new Scene(mainLayout,420,380));
+		primaryStage = new Stage(StageStyle.UNDECORATED);
+		primaryStage.setScene(new Scene(mainLayout,480,320));
+		Clock c = new Clock(mainLayout);
+		c.clockLine(3,30);
 		primaryStage.show();
 	}
 

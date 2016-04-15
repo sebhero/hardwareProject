@@ -35,7 +35,7 @@ public class RxTxService implements SerialPortEventListener {
                 "/dev/tty.usbserial-A9007UX1", // Mac OS X
                 "/dev/ttyACM0", // Raspberry Pi
                 "/dev/ttyUSB0", // Linux
-                "COM4", // Windows
+                "COM3", // Windows
         };
         /**
          * A BufferedReader which will be fed by a InputStreamReader
