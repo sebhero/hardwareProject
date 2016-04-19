@@ -25,6 +25,8 @@ public class SpringService {
 		RestTemplate restTemplate = new RestTemplate();
 		//// TODO: 2016-04-12 Change Server IP
 		try {
+			//på eduroam
+			PiStamp quote = restTemplate.getForObject("http://172.16.2.12:44344//pi/247615E", PiStamp.class);
 			PiStamp quote = restTemplate.getForObject("http://192.168.1.51:8080/pi/247615E", PiStamp.class);
 			//PiStamp quote = restTemplate.getForObject("http://192.168.1.51:8080/pi/247615E", PiStamp.class);
 			//PiStamp quote = restTemplate.getForObject("http://localhost:8080/pi/247615E", PiStamp.class);
@@ -49,7 +51,6 @@ public class SpringService {
 		//// TODO: 2016-04-12 Change Server IP
 		try {
 			PiStamp stamp = restTemplate.getForObject("http://172.16.2.12:44344/pi/" + key.getId(), PiStamp.class);
-			//PiStamp stamp = restTemplate.getForObject("http://192.168.1.51:8080/pi/" + key.getId(), PiStamp.class);
 			//PiStamp quote = restTemplate.getForObject("http://localhost:8080/pi/247615E", PiStamp.class);
 			System.out.println("GOT Answear from server");
 			log.info(stamp.toString());

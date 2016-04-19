@@ -26,10 +26,6 @@ public class PiController {
 		System.out.println("stared Pi controller");
 	}
 
-	public void getDataFromArduino(String rfidKey) {
-		System.out.println("Got from pi: "+rfidKey);
-	}
-
 	/**
 	 * Setup services
 	 */
@@ -95,5 +91,6 @@ public class PiController {
 
 	public void corruptReading() {
 		//Todo send error message to gui
+	//	mainView.setErrorMessage("Corrupt CardId try again");
 	}
 }

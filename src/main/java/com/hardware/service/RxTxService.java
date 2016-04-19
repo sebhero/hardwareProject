@@ -36,7 +36,7 @@ public class RxTxService {
                 "/dev/tty.usbserial-A9007UX1", // Mac OS X
                 "/dev/ttyACM0", // Raspberry Pi
                 "/dev/ttyUSB0", // Linux
-                "COM4", // Windows
+                "COM3", // Windows
         };
         /**
          * A BufferedReader which will be fed by a InputStreamReader
@@ -121,11 +121,18 @@ public class RxTxService {
         }
 
 
-
+    /**
+     * Returns the Serialport
+     * @return serialport
+     */
     public SerialPort getSerialPort() {
         return serialPort;
     }
 
+    /**
+     * Lets the user set the event handler that is going too be used
+     * @param eventHandler An piSerialportEventlistener
+     */
     public void setEventHandler(PISerialPortEventListener eventHandler) {
         this.piSerialPortEventListener = eventHandler;
     }

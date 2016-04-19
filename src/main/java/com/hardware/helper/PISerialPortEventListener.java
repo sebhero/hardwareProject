@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 /**
  * Created by seb on 2016-04-12.
  */
+
 @Component
 public class PISerialPortEventListener implements SerialPortEventListener {
 
@@ -40,7 +41,10 @@ public class PISerialPortEventListener implements SerialPortEventListener {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
 				String inputline = input.readLine();
-				//for test this check testIf class
+				//// TODO: 2016-04-13 remove after test/show!
+				//inputline = inputline + inputline;
+				//inputline = "01234";
+				//for test this if state,check testIf class in folder test
 				if(inputline.length() > 8 || inputline.length() < 7){
 					controller.corruptReading();
 				}else{
