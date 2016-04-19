@@ -35,7 +35,7 @@ public class MainLayout extends BorderPane {
 	private Label lblWelcome = new Label("WELCOME!");
 	private Text txtUser = new Text();
 	private Timer timerWelcome;
-
+	private Label lblFail = new Label();
 	private Text txtDate = new Text("You checked ");
 
 	public MainLayout() {
@@ -51,6 +51,7 @@ public class MainLayout extends BorderPane {
 		txtUser.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		txtDate.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		lblWelcome.setFont(Font.font("Tahoma", FontWeight.BOLD, 40));
+		lblFail.setFont(Font.font("Tahoma", FontWeight.BOLD, 40));
 		bp.setBottom(txtUser);
 		setCenter(lblWelcome);
 		gp.add(clock, 0, 0);
@@ -82,7 +83,16 @@ public class MainLayout extends BorderPane {
 			}
 		});
 	}*/
-
+	public synchronized void setConnectionFail(String failToConnect){
+		lblFail.setText(failToConnect);
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				setCenter(lblFail);
+				timerWelcome.schedule(new WelcomeReset(getContext()), 5000);
+			}
+		});
+	}
 	/**
 	 * Prints out the answer from the server
 	 * @param serverAnswer an pistamp with information

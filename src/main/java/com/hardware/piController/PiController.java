@@ -81,14 +81,17 @@ public class PiController {
             log.info("Sending to gui " + stamp.toString());
             mainView.setServerAnswer(stamp);
         }else{
-            log.error("Failed to recive");
+            log.error("Failed to recieve");
+			mainView.setConnectionFail("Connection failed");
         }
      }catch(IllegalStateException e){
 		System.out.println("Error!");
 
 	 }
 	}
-
+	public void testPiUpdate(String str){
+		mainView.setConnectionFail(str);
+	}
 	public void corruptReading() {
 		//Todo send error message to gui
 	//	mainView.setErrorMessage("Corrupt CardId try again");

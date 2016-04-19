@@ -37,7 +37,6 @@ public class PISerialPortEventListener implements SerialPortEventListener {
 	public void serialEvent(SerialPortEvent oEvent) {
 		System.out.println("GOt request from Arudino");
 		//service.testSendingRFID();
-
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
 				String inputline = input.readLine();
