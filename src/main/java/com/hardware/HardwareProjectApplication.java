@@ -9,6 +9,8 @@ import com.hardware.service.RxTxService;
 import com.hardware.service.SpringService;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.slf4j.Logger;
@@ -46,7 +48,7 @@ public class HardwareProjectApplication extends Application {
 		primaryStage = new Stage(StageStyle.UNDECORATED);
 		primaryStage.setScene(new Scene(mainLayout,480,320));
 		Clock c = new Clock(mainLayout);
-		c.clockLine(3,30);
+		c.clockLine(0,0,0);
 		primaryStage.show();
 	}
 

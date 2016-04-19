@@ -1,11 +1,6 @@
 package com.hardware.model;
 
 import com.hardware.gui.MainLayout;
-import com.sun.javaws.Main;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Text;
-
 import java.util.TimerTask;
 
 /**

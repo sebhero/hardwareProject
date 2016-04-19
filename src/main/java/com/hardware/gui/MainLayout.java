@@ -4,9 +4,11 @@ import com.hardware.HardwareProjectApplication;
 import com.hardware.model.PiStamp;
 import com.hardware.model.WelcomeReset;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -32,13 +34,15 @@ public class MainLayout extends BorderPane {
 	Circle clock = new Circle(80, Color.BLUE);
 	private Label lblWelcome = new Label("WELCOME!");
 	private Text txtUser = new Text();
-	private Timer timer;
+	private Timer timerWelcome;
 
 	private Text txtDate = new Text("You checked ");
 
 	public MainLayout() {
 		setStyle("-fx-background-color: linear-gradient(from 88% 25% to 70% 10%, #ffffffff, #3F51B5)");
-		timer = new Timer();
+		//Image image = new Image("file:com/hardware/gui/clock.jpg");
+		//ImageView clockImage = new ImageView(image);
+		timerWelcome = new Timer();
 		setPadding(new Insets(25, 25, 25, 25));
 		//add(label1,3,3);
 		//add(label2,4,0);
@@ -49,14 +53,13 @@ public class MainLayout extends BorderPane {
 		lblWelcome.setFont(Font.font("Tahoma", FontWeight.BOLD, 40));
 		bp.setBottom(txtUser);
 		setCenter(lblWelcome);
-		gp.add(clock, 0,0);
+		gp.add(clock, 0, 0);
 		gp.add(bp, 1,0);
 		gp.setHgap(25);
 		//setCenter(txtDate);
-		setTop(gp);
+		setTop(gp);;
 	}
 
-	//llalal
 
 	public MainLayout getContext() {
 		return this;
@@ -71,6 +74,14 @@ public class MainLayout extends BorderPane {
 			}
 		});
 	}
+	/*public void updateClock(){
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+
+			}
+		});
+	}*/
 
 	/**
 	 * Prints out the answer from the server
@@ -88,7 +99,7 @@ public class MainLayout extends BorderPane {
 				txtDate.setText("You checked " + (serverAnswer.isCheckIn() ? "in at: ":"out at: ") + format);
 				txtUser.setText("Hello " + "\n" + serverAnswer.getFirstName() + " " + serverAnswer.getLastName());
 				setCenter(txtDate);
-				timer.schedule(new WelcomeReset(getContext()), 5000);
+				timerWelcome.schedule(new WelcomeReset(getContext()), 5000);
 			}
 		});
 	}
