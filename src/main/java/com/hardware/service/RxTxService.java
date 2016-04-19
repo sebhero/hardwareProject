@@ -6,6 +6,8 @@ import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Scanner;
 
@@ -23,7 +26,10 @@ import java.util.Scanner;
 @Component
 public class RxTxService {
 
-
+    private  String compPort = "COM3";
+    private  String piPort = "/dev/ttyACM0";
+    private static Boolean usesPi= false;
+    private static final Logger log = LoggerFactory.getLogger(SpringService.class);
 
     PISerialPortEventListener piSerialPortEventListener;
     private PiController ctrl;
@@ -32,12 +38,7 @@ public class RxTxService {
         /**
          * The port we're normally going to use.
          */
-        private static final String PORT_NAMES[] = {
-                "/dev/tty.usbserial-A9007UX1", // Mac OS X
-                "/dev/ttyACM0", // Raspberry Pi
-                "/dev/ttyUSB0", // Linux
-                "COM3", // Windows
-        };
+        private ArrayList<String> PORT_NAMES = new ArrayList<>();
         /**
          * A BufferedReader which will be fed by a InputStreamReader
          * converting the bytes into characters
@@ -59,10 +60,20 @@ public class RxTxService {
 
 
         public void initialize() {
+
+            PORT_NAMES.add("/dev/tty.usbserial-A9007UX1");
+            PORT_NAMES.add("/dev/ttyUSB0");
+            for (String portName : PORT_NAMES) {
+                log.info("portname " + portName);
+            }
+
             // the next line is for Raspberry Pi and
             //TODO glöm ej att avmarkera när det ska till PIn
             // gets us into the while loop and was suggested here was suggested http://www.raspberrypi.org/phpBB3/viewtopic.php?f=81&t=32186
-            System.setProperty("gnu.io.rxtx.SerialPorts", "/dev/ttyACM0");
+            if(usesPi){
+                System.out.println("pi port connected!");
+                System.setProperty("gnu.io.rxtx.SerialPorts", piPort);
+            }
 
             System.out.println("Ready");
             CommPortIdentifier portId = null;
@@ -137,5 +148,19 @@ public class RxTxService {
         this.piSerialPortEventListener = eventHandler;
     }
 
+    public void setPiPort(String piPort){
+        this.piPort = piPort;
+        PORT_NAMES.add(this.piPort);
+        System.out.println("using pi port: " + this.piPort);
+    }
+    public void setCompPort(String compPort){
+        this.compPort = compPort;
+        PORT_NAMES.add(this.compPort);
+        System.out.println("COmp port " + this.compPort);
+    }
+    public void setUsesPi(boolean usesPi){
+        RxTxService.usesPi = usesPi;
+        System.out.println("usesPi " + RxTxService.usesPi );
+    }
 }
 

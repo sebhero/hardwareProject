@@ -22,11 +22,12 @@ public class PiControllerTest {
 
     @Before
     public void setUp() throws Exception {
+        /*
         controller.setEventListener(listener);
         controller.setMainView(mainView);
         controller.setRxTxService(rxTxService);
         controller.setServerService(serverService);
-        controller.init();
+        controller.init();*/
     }
 
     @Test

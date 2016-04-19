@@ -2,6 +2,7 @@ package com.hardware;
 
 import com.hardware.gui.Clock;
 import com.hardware.gui.MainLayout;
+import com.hardware.helper.ConfigReader;
 import com.hardware.helper.PISerialPortEventListener;
 import com.hardware.model.PiStamp;
 import com.hardware.piController.PiController;
@@ -25,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 @Lazy
 @SpringBootApplication
 public class HardwareProjectApplication extends Application {
+
 
 	private static final Logger log = LoggerFactory.getLogger(HardwareProjectApplication.class);
 	private static ConfigurableApplicationContext applicationContext;
@@ -70,8 +72,11 @@ public class HardwareProjectApplication extends Application {
 		serverService = new SpringService();
 		RxTxService rxtxService = new RxTxService();
 		PISerialPortEventListener listener = new PISerialPortEventListener();
+		ConfigReader reader = new ConfigReader();
+
 
 		ctrl = new PiController();
+		ctrl.setConfigFile(reader);
 		ctrl.setEventListener(listener);
 		ctrl.setServerService(serverService);
 		ctrl.setRxTxService(rxtxService);

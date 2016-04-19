@@ -24,8 +24,10 @@ public class PISerialPortEventListenerTest {
 
     @Before
     public void setUp() throws Exception {
+        /*
         listener.setController(controller);
         listener.setSerialPort(serialPort);
+        */
     }
 
     /*

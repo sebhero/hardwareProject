@@ -1,6 +1,7 @@
 package com.hardware.piController;
 
 import com.hardware.gui.MainLayout;
+import com.hardware.helper.ConfigReader;
 import com.hardware.helper.PISerialPortEventListener;
 import com.hardware.model.PiStamp;
 import com.hardware.model.RfidKey;
@@ -21,6 +22,7 @@ public class PiController {
 	private RxTxService rxTxService;
     private PISerialPortEventListener listener;
 	private MainLayout mainView;
+	private ConfigReader configFile;
 
 	public PiController() {
 		System.out.println("stared Pi controller");
@@ -30,6 +32,11 @@ public class PiController {
 	 * Setup services
 	 */
 	public void init() {
+		this.configFile.loadConfig();
+		serverService.setIp(configFile.getIp());
+		rxTxService.setCompPort(configFile.getCompPort());
+		rxTxService.setPiPort(configFile.getPiPort());
+		rxTxService.setUsesPi(configFile.isUsingPi());
 		listener.setController(this);
 		log.info("running Init");
 		rxTxService.setEventHandler(listener);
@@ -95,5 +102,9 @@ public class PiController {
 	public void corruptReading() {
 		//Todo send error message to gui
 	//	mainView.setErrorMessage("Corrupt CardId try again");
+	}
+
+	public void setConfigFile(ConfigReader configFile) {
+		this.configFile = configFile;
 	}
 }

@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class SpringService {
 
+	private String ip = "http://172.16.2.12:44344/pi/";
 	private static final Logger log = LoggerFactory.getLogger(SpringService.class);
 
 
@@ -27,7 +28,7 @@ public class SpringService {
 		//// TODO: 2016-04-12 Change Server IP
 		try {
 			//på eduroam
-			PiStamp quote = restTemplate.getForObject("http://172.16.2.12:44344//pi/247615E", PiStamp.class);
+			//PiStamp quote = restTemplate.getForObject("http://172.16.2.12:44344//pi/247615E", PiStamp.class);
 			PiStamp quote = restTemplate.getForObject("http://192.168.1.51:8080/pi/247615E", PiStamp.class);
 			//PiStamp quote = restTemplate.getForObject("http://192.168.1.51:8080/pi/247615E", PiStamp.class);
 			//PiStamp quote = restTemplate.getForObject("http://localhost:8080/pi/247615E", PiStamp.class);
@@ -54,7 +55,7 @@ public class SpringService {
 		requestFactory.setConnectTimeout(3000);
 		//// TODO: 2016-04-12 Change Server IP
 		try {
-			PiStamp stamp = restTemplate.getForObject("http://172.16.2.12:44344/pi/" + key.getId(), PiStamp.class);
+			PiStamp stamp = restTemplate.getForObject( ip + key.getId(), PiStamp.class);
 			//PiStamp quote = restTemplate.getForObject("http://localhost:8080/pi/247615E", PiStamp.class);
 			System.out.println("GOT Answer from server");
 			log.info(stamp.toString());
@@ -63,5 +64,9 @@ public class SpringService {
 			log.info("Error starting connection to server");
 		}
 		return null;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 }
