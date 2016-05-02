@@ -51,6 +51,7 @@ public class HardwareProjectApplication extends Application {
 		primaryStage.setScene(new Scene(mainLayout,480,320));
 		Clock c = new Clock(mainLayout);
 		c.clockLine(0,0,0);
+		primaryStage.setFullScreen(true);
 		primaryStage.show();
 	}
 

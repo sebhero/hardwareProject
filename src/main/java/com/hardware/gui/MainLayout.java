@@ -31,7 +31,7 @@ public class MainLayout extends BorderPane {
 	private PiStamp serverAnswer;
 	GridPane gp = new GridPane();
 	BorderPane bp = new BorderPane();
-	Circle clock = new Circle(80, Color.BLUE);
+	Circle clock = new Circle(80, new Color(0,0,0,0));
 	private Label lblWelcome = new Label("WELCOME!");
 	private Text txtUser = new Text();
 	private Timer timerWelcome;
@@ -40,8 +40,6 @@ public class MainLayout extends BorderPane {
 
 	public MainLayout() {
 		setStyle("-fx-background-color: linear-gradient(from 88% 25% to 70% 10%, #ffffffff, #3F51B5)");
-		//Image image = new Image("file:com/hardware/gui/clock.jpg");
-		//ImageView clockImage = new ImageView(image);
 		timerWelcome = new Timer();
 		setPadding(new Insets(25, 25, 25, 25));
 		//add(label1,3,3);
@@ -58,7 +56,7 @@ public class MainLayout extends BorderPane {
 		gp.add(bp, 1,0);
 		gp.setHgap(25);
 		//setCenter(txtDate);
-		setTop(gp);;
+		setTop(gp);
 	}
 
 

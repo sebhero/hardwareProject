@@ -2,8 +2,17 @@ package com.hardware.gui;
 
 import com.hardware.model.ClockTimer;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.shape.StrokeLineJoin;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 
 /**
@@ -17,6 +26,7 @@ public class Clock {
     private Line lineHour = new Line();
     private Line lineSecond = new Line();
     private Timer timerClock;
+    private Circle clock = new Circle(105, 105, 80);
     MainLayout m;
     public Clock(MainLayout m){
         this.m = m;
@@ -28,6 +38,31 @@ public class Clock {
         lineSecond.setStartY(105);
         lineHour.setStartX(105);
         lineHour.setStartY(105);
+        lineSecond.setStrokeWidth(1);
+        lineMinute.setStrokeWidth(3);
+        lineHour.setStrokeWidth(3);
+        lineSecond.setStrokeLineCap(StrokeLineCap.ROUND);
+        lineMinute.setStrokeLineCap(StrokeLineCap.BUTT);
+        lineHour.setStrokeLineCap(StrokeLineCap.SQUARE);
+        lineMinute.setStrokeLineJoin(StrokeLineJoin.BEVEL);
+        lineSecond.setStrokeLineJoin(StrokeLineJoin.MITER);
+        lineHour.setStrokeLineJoin(StrokeLineJoin.ROUND);
+
+        clockImage();
+    }
+    public void clockImage(){
+        ImageView imgV = new ImageView();
+        Image img = new Image("clock.jpg");
+        imgV.setImage(img);
+        imgV.setFitWidth(160);
+        imgV.setFitHeight(160);
+        imgV.setPreserveRatio(true);
+        imgV.setSmooth(true);
+        imgV.setCache(true);
+        imgV.setClip(clock);
+        imgV.setX(25);
+        imgV.setY(25);
+        m.getChildren().add(imgV);
     }
     public void updateTime(){
         second++;
@@ -59,12 +94,12 @@ public class Clock {
         int angleM = (minute * 6);
         int angleS = (second * 6);
         int angleH = (hour * 30) + (minute/2);
-        double xM = 105 + 72 * Math.cos(((angleM - 90)*Math.PI)/180);
-        double xH = 105 + 60 * Math.cos(((angleH - 90)*Math.PI)/180);
-        double xS = 105 + 78 * Math.cos(((angleS - 90)*Math.PI)/180);
-        double yM = 105 + 72 * Math.sin(((angleM - 90)*Math.PI)/180);
-        double yH = 105 + 60 * Math.sin(((angleH - 90)*Math.PI)/180);
-        double yS = 105 + 78 * Math.sin(((angleS - 90)*Math.PI)/180);
+        double xM = 105 + 60 * Math.cos(((angleM - 90)*Math.PI)/180);
+        double xH = 105 + 52 * Math.cos(((angleH - 90)*Math.PI)/180);
+        double xS = 105 + 75 * Math.cos(((angleS - 90)*Math.PI)/180);
+        double yM = 105 + 60 * Math.sin(((angleM - 90)*Math.PI)/180);
+        double yH = 105 + 52 * Math.sin(((angleH - 90)*Math.PI)/180);
+        double yS = 105 + 75 * Math.sin(((angleS - 90)*Math.PI)/180);
         lineMinute.setEndY(yM);
         lineHour.setEndY(yH);
         lineSecond.setEndY(yS);
