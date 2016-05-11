@@ -1,5 +1,6 @@
 package com.hardware;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.hardware.gui.Clock;
 import com.hardware.gui.MainLayout;
 import com.hardware.helper.ConfigReader;
@@ -14,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.concurrent.Exchanger;
 
 @Lazy
 @SpringBootApplication
@@ -75,7 +83,6 @@ public class HardwareProjectApplication extends Application {
 		PISerialPortEventListener listener = new PISerialPortEventListener();
 		ConfigReader reader = new ConfigReader();
 
-
 		ctrl = new PiController();
 		ctrl.setConfigFile(reader);
 		ctrl.setEventListener(listener);
@@ -83,6 +90,7 @@ public class HardwareProjectApplication extends Application {
 		ctrl.setRxTxService(rxtxService);
 		ctrl.setMainView(mainLayout);
 		ctrl.init();
+
 
 		//serverService.testSendingRFID();
 

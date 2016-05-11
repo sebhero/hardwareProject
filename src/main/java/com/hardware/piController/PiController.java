@@ -11,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 /**
  * Created by jonatan on 2016-04-12.
  */
@@ -23,7 +26,7 @@ public class PiController {
     private PISerialPortEventListener listener;
 	private MainLayout mainView;
 	private ConfigReader configFile;
-
+	public static volatile int status = -1;
 	public PiController() {
 		System.out.println("stared Pi controller");
 	}
@@ -40,6 +43,7 @@ public class PiController {
 		listener.setController(this);
 		log.info("running Init");
 		rxTxService.setEventHandler(listener);
+		rxTxService.setCtrl(this);
 		rxTxService.initialize();
 	}
 
@@ -82,14 +86,22 @@ public class PiController {
 	 * @param key rfid
      */
     public void sendToServer(RfidKey key) {
-        PiStamp stamp = serverService.sendRfid(key);
+		PiStamp stamp = serverService.sendRfid(key);
 		try{
         if(stamp != null){
-            log.info("Sending to gui " + stamp.toString());
-            mainView.setServerAnswer(stamp);
+			if(stamp.getFirstName() == null) {
+				mainView.setConnectionFail("Hello pleb! \n U suck dik");
+				setStatus(1);
+			}
+			else {
+				log.info("Sending to gui " + stamp.toString());
+				mainView.setServerAnswer(stamp);
+			}
         }else{
             log.error("Failed to recieve");
 			mainView.setConnectionFail("Connection failed");
+			setStatus(1);
+
         }
      }catch(IllegalStateException e){
 		System.out.println("Error!");
@@ -102,6 +114,12 @@ public class PiController {
 	public void corruptReading() {
 		//Todo send error message to gui
 	//	mainView.setErrorMessage("Corrupt CardId try again");
+	}
+	public void setStatus(int status){
+		this.status = status;
+	}
+	public int getStatus(){
+		return status;
 	}
 
 	public void setConfigFile(ConfigReader configFile) {

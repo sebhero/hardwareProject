@@ -1,4 +1,4 @@
 Ip = http://172.16.2.12:44344/pi/
 Pi = false
 PiPort = /dev/ttyACM0
-CompPort = COM5
+CompPort = COM3

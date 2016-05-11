@@ -108,10 +108,10 @@ public class RxTxService {
                 // open the streams
                 output = serialPort.getOutputStream();
                 System.out.println("Seiralportsend");
-                piSerialPortEventListener.setSerialPort(serialPort);
+                input = piSerialPortEventListener.setSerialPort(serialPort);
+                (new Thread(new PISerialPortEventListener().new SerialWriter(output, ctrl))).start();
 	            // add event listeners
-                serialPort.addEventListener(piSerialPortEventListener);
-                System.out.println("Seiralportsend2");
+                serialPort.addEventListener(new PISerialPortEventListener().new serialRead(input, ctrl));
                 serialPort.notifyOnDataAvailable(true);
             } catch (Exception e) {
                 System.err.println(e.toString());
@@ -161,6 +161,9 @@ public class RxTxService {
     public void setUsesPi(boolean usesPi){
         RxTxService.usesPi = usesPi;
         System.out.println("usesPi " + RxTxService.usesPi );
+    }
+    public void setCtrl(PiController controller){
+        this.ctrl = controller;
     }
 }
 
