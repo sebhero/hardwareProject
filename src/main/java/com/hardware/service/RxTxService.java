@@ -21,6 +21,7 @@ import java.util.Scanner;
 
 /**
  * Created by jonatan on 2016-04-12.
+ * Modified by Johnatan S.
  */
 
 @Component
@@ -69,7 +70,7 @@ public class RxTxService {
 
             // the next line is for Raspberry Pi and
             //TODO glöm ej att avmarkera när det ska till PIn
-            // gets us into the while loop and was suggested here was suggested http://www.raspberrypi.org/phpBB3/viewtopic.php?f=81&t=32186
+            // gets us into the while loop and was suggested here http://www.raspberrypi.org/phpBB3/viewtopic.php?f=81&t=32186
             if(usesPi){
                 System.out.println("pi port connected!");
                 System.setProperty("gnu.io.rxtx.SerialPorts", piPort);

@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 /**
  * Created by jonatan on 2016-04-13.
  */
-public class SpringServiceTest {
+//public class SpringServiceTest {
 
 //    private SpringService service = new SpringService();
 //
@@ -24,4 +24,4 @@ public class SpringServiceTest {
 //       // Assert.assertTrue(test instanceof PiStamp);
 //        //Assert.assertFalse(test instanceof RfidKey);
 //    }
-}
+//}

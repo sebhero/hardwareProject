@@ -17,7 +17,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 /**
- * Created by seb on 2016-04-12.
+ * Created by Johnatan S.
+ * This class handles the communication between the pi and arduino.
+ * It takes care of both the reading from and writing to the arduino.
  */
 
 @Component
@@ -32,9 +34,9 @@ public class PISerialPortEventListener{
 	private PiController controller;
 
 	/**
-	 * This method will take care of an serialportevent and then return it to the controller
+	 * This inner class handles the reading from arduino. When a card is scanned, the content are
+	 * being processed here. Which in turn is sent to the controller.
 	 *
-	 * //@param oEvent serialportevent
 	 */
 	public class serialRead implements SerialPortEventListener {
 		private BufferedReader inputS;
@@ -50,13 +52,11 @@ public class PISerialPortEventListener{
 				try {
 					String inputLine = inputS.readLine();
 					System.out.println(inputLine);
-					//inputLine = "123456";
 					if (inputLine.length() > 8 || inputLine.length() < 7) {
 						controllerS.corruptReading();
 					} else {
 						RfidKey key = new RfidKey(inputLine);
 						controllerS.sendToServer(key);
-						//System.out.println("Input: " + key.getId());
 					}
 				} catch (Exception e) {
 					System.err.println(e.toString());
@@ -65,6 +65,10 @@ public class PISerialPortEventListener{
 		}
 
 	}
+
+	/**
+	 * This inner class handles the writing to arduino. It sends back the status of the card.
+	 */
 	public class SerialWriter implements Runnable{
 		OutputStream out;
 		private PiController controllerS;
@@ -97,29 +101,7 @@ public class PISerialPortEventListener{
 			}
 		}
 	}
-	/*@Override
-	public void serialEvent(SerialPortEvent oEvent) {
-		System.out.println("GOt request from Arudino");
-		//service.testSendingRFID();
-		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
-			try {
-				String inputline = input.readLine();
-				//// TODO: 2016-04-13 remove after test/show!
-				//inputline = inputline + inputline;
-				//inputline = "01234";
-				//for test this if state,check testIf class in folder test
-				if (inputline.length() > 8 || inputline.length() < 7) {
-					controller.corruptReading();
-				} else {
-					RfidKey key = new RfidKey(inputline);
-					controller.sendToServer(key);
-					System.out.println("Input: " + key.getId());
-				}
-			} catch (Exception e) {
-				System.err.println(e.toString());
-			}
-		}
-	}*/
+
 	/**
 	 * This method will set the local serialport to a destinated one
 	 * @param serialPort the port we need to use

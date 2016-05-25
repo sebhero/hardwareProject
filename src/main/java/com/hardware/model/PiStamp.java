@@ -7,7 +7,6 @@ package com.hardware.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 
 /***
@@ -20,8 +19,9 @@ public class PiStamp implements Serializable {
 
 	private String lastName;
 	private String firstName;
+	private String status;
 	private boolean checkIn;
-	private Calendar date;
+	private long date;
 
 
 	public PiStamp() {
@@ -79,7 +79,7 @@ public class PiStamp implements Serializable {
 	 * Returns an dateobject
 	 * @return
      */
-	public Calendar getDate() {
+	public long getDate() {
 		return date;
 	}
 
@@ -87,10 +87,25 @@ public class PiStamp implements Serializable {
 	 * Set the date to a new date
 	 * @param date new date
      */
-	public void setDate(Calendar date) {
+	public void setDate(long date) {
 		this.date = date;
 	}
 
+	/**
+	 * Gets the status of the pistamp.
+	 *
+	 * @return the status of the piStamp
+     */
+	public String getPiStatus(){ return status;}
+
+	/**
+	 * Sets the status of the piStamp that is returned from the server
+	 * (only if something went wrong).
+	 * This status is then displayed on the GUI so the user will know what went wrong.
+	 *
+	 * @param str the status in a String format
+     */
+	public void setPiStatus(String str){ this.status = str;}
 	/**
 	 * Makes all info from the class to an string
 	 * @return a string with info

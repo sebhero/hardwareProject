@@ -57,7 +57,7 @@ public class HardwareProjectApplication extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage = new Stage(StageStyle.UNDECORATED);
 		primaryStage.setScene(new Scene(mainLayout,480,320));
-		Clock c = new Clock(mainLayout);
+		Clock c = new Clock(mainLayout, serverService);
 		c.clockLine(0,0,0);
 		primaryStage.setFullScreen(true);
 		primaryStage.show();

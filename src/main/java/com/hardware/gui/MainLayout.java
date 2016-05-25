@@ -1,29 +1,26 @@
 package com.hardware.gui;
 
-import com.hardware.HardwareProjectApplication;
 import com.hardware.model.PiStamp;
 import com.hardware.model.WelcomeReset;
 import javafx.application.Platform;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Timer;
-import java.util.TimerTask;
 
-
+/**
+ * Created by Johnatan S.
+ * This class handles the main window what is displayed on the Pi screen.
+ */
 @Component
 public class MainLayout extends BorderPane {
 
@@ -38,14 +35,13 @@ public class MainLayout extends BorderPane {
 	private Label lblFail = new Label();
 	private Text txtDate = new Text("You checked ");
 
+	/**
+	 * This constructor sets the properties of the graphical parts.
+	 */
 	public MainLayout() {
 		setStyle("-fx-background-color: linear-gradient(from 88% 25% to 70% 10%, #ffffffff, #3F51B5)");
 		timerWelcome = new Timer();
 		setPadding(new Insets(25, 25, 25, 25));
-		//add(label1,3,3);
-		//add(label2,4,0);
-		//txt.setFont(new Font(10));
-		//setAlignment(Pos.CENTER);
 		txtUser.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		txtDate.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		lblWelcome.setFont(Font.font("Tahoma", FontWeight.BOLD, 40));
@@ -55,7 +51,6 @@ public class MainLayout extends BorderPane {
 		gp.add(clock, 0, 0);
 		gp.add(bp, 1,0);
 		gp.setHgap(25);
-		//setCenter(txtDate);
 		setTop(gp);
 	}
 
@@ -64,6 +59,9 @@ public class MainLayout extends BorderPane {
 		return this;
 	}
 
+	/**
+	 * This method makes sure so that the Welcome screen is reset and displayed after every use.
+	 */
 	public void resetWelcome() {
 		Platform.runLater(new Runnable() {
 			@Override
@@ -73,15 +71,13 @@ public class MainLayout extends BorderPane {
 			}
 		});
 	}
-	/*public void updateClock(){
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
 
-			}
-		});
-	}*/
-	public synchronized void setConnectionFail(String failToConnect){
+	/**
+	 * This method displays an error message on the GUI when something fails.
+	 *
+	 * @param failToConnect The message that is to be displayed.
+     */
+	public synchronized void setFailMessage(String failToConnect){
 		lblFail.setText(failToConnect);
 		Platform.runLater(new Runnable() {
 			@Override
@@ -103,7 +99,9 @@ public class MainLayout extends BorderPane {
 		Platform.runLater(new Runnable() {
 			public void run() {
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-				String format = simpleDateFormat.format(serverAnswer.getDate().getTime());
+				Calendar cal = Calendar.getInstance();
+				cal.setTimeInMillis(serverAnswer.getDate());
+				String format = simpleDateFormat.format(cal.getTime());
 				txtDate.setText("You checked " + (serverAnswer.isCheckIn() ? "in at: ":"out at: ") + format);
 				txtUser.setText("Hello " + "\n" + serverAnswer.getFirstName() + " " + serverAnswer.getLastName());
 				setCenter(txtDate);

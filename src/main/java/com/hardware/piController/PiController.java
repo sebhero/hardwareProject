@@ -15,7 +15,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Created by jonatan on 2016-04-12.
+ * Created by Johnatan S.
+ * This class handles the controllers.
  */
 @Component
 public class PiController {
@@ -80,26 +81,39 @@ public class PiController {
 	}
 
 	/**
-	 * This method will send a string to servern,
-	 * then if the stamp isn´t null we will transfer the stamp to the gui.
+	 * This method will send a string to servern.
+	 * Then, depending on what status is applied to it, different messages are sent to the gui.
+	 * If no status is applied (meaning no problem has occurred) a regular stamp with time and identification will be
+	 * sent to the GUI
 	 *
 	 * @param key rfid
      */
     public void sendToServer(RfidKey key) {
 		PiStamp stamp = serverService.sendRfid(key);
 		try{
-        if(stamp != null){
-			if(stamp.getFirstName() == null) {
-				mainView.setConnectionFail("Hello pleb! \n U suck dik");
-				setStatus(1);
+        if(stamp.getPiStatus()==null){
+				log.info("Sending to gui " + stamp.toString());
+				setStatus(0);
+				mainView.setServerAnswer(stamp);
+
+        }else{
+			System.out.println(stamp.getPiStatus());
+			if(stamp.getPiStatus().equals("400 Bad Request")){
+				mainView.setFailMessage("User not found");
+			}
+			else if(stamp.getPiStatus().equals("403 Forbidden")){
+				mainView.setFailMessage("Card disabled");
+			}
+			else if(stamp.getPiStatus().equals("423 Locked")){
+				mainView.setFailMessage("Account is locked");
+			}
+			else if(stamp.getPiStatus().equals("401 Unauthorized")){
+				mainView.setFailMessage("Unauthorized user");
 			}
 			else {
-				log.info("Sending to gui " + stamp.toString());
-				mainView.setServerAnswer(stamp);
+				log.error("Failed to recieve");
+				mainView.setFailMessage("Connection failed");
 			}
-        }else{
-            log.error("Failed to recieve");
-			mainView.setConnectionFail("Connection failed");
 			setStatus(1);
 
         }
@@ -108,16 +122,25 @@ public class PiController {
 
 	 }
 	}
-	public void testPiUpdate(String str){
-		mainView.setConnectionFail(str);
-	}
 	public void corruptReading() {
 		//Todo send error message to gui
-	//	mainView.setErrorMessage("Corrupt CardId try again");
 	}
+
+	/**
+	 * Sets the status of the card. If it's good to go or if a problem occured. This status is then
+	 * sent to the arduino which in turn displays the status with red and green lamp.
+	 *
+	 * @param status the status that is sent back to the arduino
+     */
 	public void setStatus(int status){
 		this.status = status;
 	}
+
+	/**
+	 * Gets the status that is to be sent to the arduino.
+	 *
+	 * @return returns the status
+     */
 	public int getStatus(){
 		return status;
 	}

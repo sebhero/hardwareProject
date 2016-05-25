@@ -14,6 +14,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.UnknownHostException;
 import java.util.Calendar;
 
 /**
@@ -29,23 +30,6 @@ public class SpringService {
 
 	public SpringService() {
 	}
-	// TODO a test remove later!
-	public void testSendingRFID() {
-///do A SERVER CALL
-		RestTemplate restTemplate = new RestTemplate();
-		//// TODO: 2016-04-12 Change Server IP
-		try {
-			//på eduroam
-			//PiStamp quote = restTemplate.getForObject("http://172.16.2.12:44344//pi/247615E", PiStamp.class);
-			PiStamp quote = restTemplate.getForObject("http://192.168.1.51:8080/pi/247615E", PiStamp.class);
-			//PiStamp quote = restTemplate.getForObject("http://192.168.1.51:8080/pi/247615E", PiStamp.class);
-			//PiStamp quote = restTemplate.getForObject("http://localhost:8080/pi/247615E", PiStamp.class);
-			System.out.println("GOT Answer from server");
-			log.info(quote.toString());
-		}catch (Exception e){
-			log.info("Error starting connecting to server");
-		}
-	}
 
 	/**
 	 * Still method will send the rfid to the server,
@@ -54,8 +38,14 @@ public class SpringService {
 	 * @return pistamp
      */
 	public PiStamp sendRfid(RfidKey key) {
+			BasicAuthRestTemplate restTemplate = new BasicAuthRestTemplate("piUser", "pass");
+			String url = "https://projektessence.se/api/pi/" + key.getId();
 
-        log.info("Sending data to server " + key.getId());
+			BasicAuthRestTemplate.trustSelfSignedSSL();
+
+			PiStamp piStamp = new PiStamp();
+
+        /*log.info("Sending data to server " + key.getId());
 		///do A SERVER CALL
 		String plainCreds = "piUser:pass";
 		byte[] plainCredsBytes = plainCreds.getBytes();
@@ -65,30 +55,41 @@ public class SpringService {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "Basic " + base64Creds);
 
-		HttpEntity<String> request = new HttpEntity<>(headers);
-		RestTemplate restTemplate = new RestTemplate();
-		SimpleClientHttpRequestFactory requestFactory = (SimpleClientHttpRequestFactory) restTemplate.getRequestFactory();
-		requestFactory.setReadTimeout(3000);
-		requestFactory.setConnectTimeout(3000);
+		HttpEntity<String> request = new HttpEntity<>(headers);*/
 		//// TODO: 2016-04-12 Change Server IP
 		try{
-			ResponseEntity<PiStamp> response = restTemplate.exchange("https://projektessence.se/api/pi/" + key.getId(), HttpMethod.GET, request, PiStamp.class);
-			PiStamp piStamp = response.getBody();
+			piStamp = restTemplate.getForObject(url, PiStamp.class);
+			//ResponseEntity<PiStamp> response = restTemplate.exchange("https://projektessence.se/api/pi/" + key.getId(), HttpMethod.GET, request, PiStamp.class);
+			//PiStamp piStamp = response.getBody();
 			//PiStamp stamp = restTemplate.getForObject( ip + key.getId(), PiStamp.class);
 			//PiStamp quote = restTemplate.getForObject("http://localhost:8080/pi/247615E", PiStamp.class);
 			System.out.println("GOT Answer from server");
-
+			System.out.println(piStamp.toString());
 			return piStamp;
 		}catch (Exception e){
-			if(e.getMessage().equals("400 Bad Request"))
-				return new PiStamp();
+			piStamp.setPiStatus(e.getMessage());
 			log.info(e.getMessage());
 			log.info("Error starting connection to server");
 		}
-		return null;
+		return piStamp;
 	}
 
 	public void setIp(String ip) {
 		this.ip = ip;
+	}
+
+	public long getPiTime(){
+		BasicAuthRestTemplate restTemplate = new BasicAuthRestTemplate("piUser", "pass");
+		String urlTime = "https://projektessence.se/api/pi/time";
+		BasicAuthRestTemplate.trustSelfSignedSSL();
+		PiStamp piTime = new PiStamp();
+		try{
+			piTime = restTemplate.getForObject(urlTime, PiStamp.class);
+			System.out.println(piTime.getDate());
+		}catch(Exception e){
+			log.info(e.getMessage());
+			System.out.println(piTime.getDate());
+		}
+		return piTime.getDate();
 	}
 }

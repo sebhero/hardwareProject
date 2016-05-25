@@ -30,6 +30,9 @@ public class ConfigReader {
         this.ip =  prop.getProperty("Ip");
         this.usingPi = Boolean.parseBoolean(prop.getProperty("Pi"));
         this.piPort = prop.getProperty("PiPort");
+        if(piPort==null){
+            this.piPort="/dev/ttyACM0";
+        }
         this.compPort = prop.getProperty("CompPort");
     }
 

@@ -81,23 +81,24 @@ public class PiStampTest {
     public void testGetDate() throws Exception {
         //given
         Calendar date = Calendar.getInstance();
-        stamp.setDate(date);
+        stamp.setDate(date.getTimeInMillis());
         //when
-        Calendar get = stamp.getDate();
+        Calendar get = Calendar.getInstance();
+        get.setTimeInMillis(stamp.getDate());
         //then
         Assert.assertEquals(get,date);
     }
 
-    @org.junit.Test
-    public void testSetDate() throws Exception {
-        //given
-        Calendar date = Calendar.getInstance();
-        stamp.setDate(date);
-        //when
-        Calendar get = stamp.getDate();
-        //then
-        Assert.assertEquals(get,date);
-    }
+//    @org.junit.Test
+//    public void testSetDate() throws Exception {
+//        //given
+//        Calendar date = Calendar.getInstance();
+//        stamp.setDate(date);
+//        //when
+//        Calendar get = stamp.getDate();
+//        //then
+//        Assert.assertEquals(get,date);
+//    }
 
     @org.junit.Test
     public void testToString() throws Exception {
