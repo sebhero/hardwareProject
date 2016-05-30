@@ -15,7 +15,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Created by Johnatan S.
+ * @author Johnatan S, Jonatan F
+ * Class created by Jonatan F, Modified by Johnatan S
  * This class handles the controllers.
  */
 @Component

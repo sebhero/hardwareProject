@@ -18,7 +18,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by Sebastian Börebäck on 2016-05-10.
+ * @author Sebastian Börebäck, Johnatan S on 2016-05-10.
+ * This class contains the authentication needed for a secure connection to the server, it is implemented
+ * so that the raspberry pi will send secure data to the server.
  */
 public class BasicAuthRestTemplate extends RestTemplate {
 

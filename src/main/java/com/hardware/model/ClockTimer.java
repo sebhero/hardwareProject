@@ -5,7 +5,7 @@ import com.hardware.gui.Clock;
 import java.util.TimerTask;
 
 /**
- * Created by Johnatan on 2016-04-15.
+ * @author Johnatan on 2016-04-15.
  */
 public class ClockTimer extends TimerTask implements Runnable {
     private Clock clock;

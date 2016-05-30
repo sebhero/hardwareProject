@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.Timer;
 
 /**
- * Created by Johnatan S.
+ * @author Johnatan S.
  * This class handles the main window what is displayed on the Pi screen.
  */
 @Component

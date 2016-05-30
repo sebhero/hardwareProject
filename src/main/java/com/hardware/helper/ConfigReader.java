@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Properties;
 
 /**
- * Created by jonatan on 2016-04-19.
+ * @author jonatan on 2016-04-19.
  */
 public class ConfigReader {
 

@@ -1,7 +1,7 @@
 package com.hardware.model;
 
 /**
- * Created by seb on 2016-04-12.
+ * @author Johnatan S, Sebastian on 2016-04-12.
  */
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

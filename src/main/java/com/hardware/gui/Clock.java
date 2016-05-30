@@ -19,7 +19,7 @@ import java.util.Calendar;
 import java.util.Timer;
 
 /**
- * Created by Johnatan S.
+ * @author Johnatan S.
  *
  * This class creates a clock that is to be used on the display.
  */

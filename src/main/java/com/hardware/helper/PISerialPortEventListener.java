@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 /**
- * Created by Johnatan S.
+ * @author Johnatan S.
  * This class handles the communication between the pi and arduino.
  * It takes care of both the reading from and writing to the arduino.
  */

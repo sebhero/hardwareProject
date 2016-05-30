@@ -4,7 +4,7 @@ import com.hardware.gui.MainLayout;
 import java.util.TimerTask;
 
 /**
- * Created by Johnatan on 2016-04-15.
+ * @author Johnatan on 2016-04-15.
  */
 public class WelcomeReset extends TimerTask implements Runnable{
 

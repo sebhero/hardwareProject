@@ -20,8 +20,8 @@ import java.util.Enumeration;
 import java.util.Scanner;
 
 /**
- * Created by jonatan on 2016-04-12.
- * Modified by Johnatan S.
+ * @author Johnatan S, Jonatan F, Sebastian on 2016-04-12.
+ * Final creation by Johnatan S.
  */
 
 @Component

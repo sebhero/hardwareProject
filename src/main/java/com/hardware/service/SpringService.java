@@ -18,7 +18,7 @@ import java.net.UnknownHostException;
 import java.util.Calendar;
 
 /**
- * Created by seb on 2016-04-12.
+ * @author Johnatan S, Sebastian on 2016-04-12.
  */
 
 @Component

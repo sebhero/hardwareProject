@@ -33,6 +33,10 @@ import java.util.concurrent.Exchanger;
 
 @Lazy
 @SpringBootApplication
+/**
+ *
+ * @author Johnatan S, Jonatan F, Sebastian
+ */
 public class HardwareProjectApplication extends Application {
 
 
