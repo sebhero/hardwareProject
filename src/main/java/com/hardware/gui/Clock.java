@@ -44,6 +44,7 @@ public class Clock {
      * creates the timer.
      *
      * @param m the window which the clock is going to be displayed at.
+     * @param s the server-controller that is used for clock-synchronization
      */
     public Clock(MainLayout m, SpringService s){
         this.m = m;
