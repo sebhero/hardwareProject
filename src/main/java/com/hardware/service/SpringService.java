@@ -45,24 +45,10 @@ public class SpringService {
 
 			PiStamp piStamp = new PiStamp();
 
-        /*log.info("Sending data to server " + key.getId());
-		///do A SERVER CALL
-		String plainCreds = "piUser:pass";
-		byte[] plainCredsBytes = plainCreds.getBytes();
-		byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
-		String base64Creds = new String(base64CredsBytes);
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "Basic " + base64Creds);
-
-		HttpEntity<String> request = new HttpEntity<>(headers);*/
 		//// TODO: 2016-04-12 Change Server IP
 		try{
 			piStamp = restTemplate.getForObject(url, PiStamp.class);
-			//ResponseEntity<PiStamp> response = restTemplate.exchange("https://projektessence.se/api/pi/" + key.getId(), HttpMethod.GET, request, PiStamp.class);
-			//PiStamp piStamp = response.getBody();
-			//PiStamp stamp = restTemplate.getForObject( ip + key.getId(), PiStamp.class);
-			//PiStamp quote = restTemplate.getForObject("http://localhost:8080/pi/247615E", PiStamp.class);
 			System.out.println("GOT Answer from server");
 			System.out.println(piStamp.toString());
 			return piStamp;
