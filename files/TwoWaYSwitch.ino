@@ -55,6 +55,7 @@ void setup() {
 void loop() {
   
   switch(currentState){
+    //this case handles the card-scanning
     case inputRfid:
     digitalWrite(4, LOW);
         uchar status;
@@ -103,11 +104,15 @@ void loop() {
                 serialClear();
                 
         }
+        //If the arduino doesn't get an answer it goes to timeout which is active for 100ms, and then back to
+        //listening again. it does this 40 times (which equals to 4 seconds), whereof it then goes back to card-scanner.
+        //
         else {
           nextState = timeout;
         }
         break;
 
+       //this case handles the red light, meaning something went wrong
        case outputRed:
         digitalWrite(7, HIGH);
         for(int i = 0; i<10; i++){
@@ -123,6 +128,7 @@ void loop() {
         nextState = inputRfid;
         break;
 
+       //this case handles the green light, meaning everything went ok
        case outputGreen:
         digitalWrite(8, HIGH);
         digitalWrite(3, HIGH);
@@ -138,7 +144,9 @@ void loop() {
         delay(6000);
         nextState = inputRfid;
         break;
-        
+
+       //Timeout for 4 seconds. If there is no answer from the other end of the serial connection
+       //it goes back to scan cards.
        case timeout:
         delay(100);
         tic += 1;
@@ -152,7 +160,7 @@ void loop() {
   }
   currentState = nextState;
 }
-
+//This method clears the serial buffer if for some reason something went wrong and data is still there.
 void serialClear(){
   while(Serial.available()>0) {
     char waste = Serial.read();
