@@ -55,6 +55,7 @@ void setup() {
 void loop() {
   
   switch(currentState){
+
     //this case handles the card-scanning
     case inputRfid:
     digitalWrite(4, LOW);
@@ -84,7 +85,7 @@ void loop() {
       }
       break;
       
-      
+      //this case listenes for answer from raspberry pi (or whatever is connected to the serial port):
      case inputListener:
       if(Serial.available() > 0) {
                 Serial.flush();
