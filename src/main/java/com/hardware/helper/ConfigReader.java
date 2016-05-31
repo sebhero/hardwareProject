@@ -4,7 +4,10 @@ import java.io.*;
 import java.util.Properties;
 
 /**
- * @author jonatan on 2016-04-19.
+ * @author Jonatan Fridsten
+ *         <p>
+ *         This class makes is possible to change the ip,port and if we are using pi,
+ *         even when its an jar.
  */
 public class ConfigReader {
 
@@ -13,7 +16,10 @@ public class ConfigReader {
     private String piPort;
     private String compPort;
 
-    public void loadConfig(){
+    /**
+     * Reads the file then saves it as field variables
+     */
+    public void loadConfig() {
         Properties prop = new Properties();
         File configFile = new File("./files/configFile");
 
@@ -27,27 +33,47 @@ public class ConfigReader {
             e.printStackTrace();
         }
 
-        this.ip =  prop.getProperty("Ip");
+        this.ip = prop.getProperty("Ip");
         this.usingPi = Boolean.parseBoolean(prop.getProperty("Pi"));
         this.piPort = prop.getProperty("PiPort");
-        if(piPort==null){
-            this.piPort="/dev/ttyACM0";
+        if (piPort == null) {
+            this.piPort = "/dev/ttyACM0";
         }
         this.compPort = prop.getProperty("CompPort");
     }
 
+    /**
+     * Returns if the program is using a pi or not
+     *
+     * @return false not on pi, true on a pi
+     */
     public boolean isUsingPi() {
         return usingPi;
     }
 
+    /**
+     * Returns the current ip
+     *
+     * @return ip as an string
+     */
     public String getIp() {
         return ip;
     }
 
+    /**
+     * Returns what port that is connected on the pi
+     *
+     * @return port value
+     */
     public String getPiPort() {
         return piPort;
     }
 
+    /**
+     * Returns the current USB-port that is used
+     *
+     * @return port value
+     */
     public String getCompPort() {
         return compPort;
     }
